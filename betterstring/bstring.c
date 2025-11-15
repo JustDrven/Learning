@@ -38,13 +38,14 @@ IN size_t GetLength(IN PCHAR buff) {
 
     do {
 
-        size++;
 
         currentChar = buff[size];
 
+        size++;
+
     } while (currentChar != '\0');
 
-    return size;
+    return size - 1;
 }
 
 

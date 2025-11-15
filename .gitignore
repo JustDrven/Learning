@@ -3,6 +3,8 @@
 *.obj
 *.o
 
+*.DAT
+
 
 .idea/
 .vscode/

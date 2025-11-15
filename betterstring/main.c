@@ -20,7 +20,7 @@
 
 
 int main() {
-    PCHAR buffer = "Hello from String Buffer";
+    PCHAR buffer = "Hello from Better String Buffer";
 
     BString bstring = InitBString(
         buffer

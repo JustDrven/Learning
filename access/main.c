@@ -42,6 +42,7 @@ typedef char                            BOOL;
 
 //
 //  common declaration
+
 //
 
 NACCESS MakeAccess(int, int, int, BOOL);
@@ -132,27 +133,6 @@ NACCESS MakeAccess(int Id, int AccessType, int Flags, BOOL Error) {
 
 
 
-
-
-
-
-void printInfo(NACCESS accessToken) {
-
-    int accessId = (accessToken >> 23) & MASK_ACCESS_ID;
-    int accessType = (accessToken >> 18) & MASK_ACCESS_TYPE;
-    int accessFlags = (accessToken >> 1) & MASK_ACCESS_FLAGS;
-    int accessError = accessToken & MASK_ACCESS_ERROR;
-
-    printf("\n");
-    printf("ID: %d\n", accessId);
-    printf("Type: %d\n", accessType);
-    printf("Flags: %d\n", accessFlags);
-    printf("Error: %d\n", accessError);
-    printf("\n");
-
-}
-
-
 //
 //  start entry point
 //
@@ -203,6 +183,30 @@ int main() {
 }
 
 
+
+
+
+
+
+//
+//  print access token information
+//
+
+void printInfo(NACCESS accessToken) {
+
+    int accessId = (accessToken >> 23) & MASK_ACCESS_ID;
+    int accessType = (accessToken >> 18) & MASK_ACCESS_TYPE;
+    int accessFlags = (accessToken >> 1) & MASK_ACCESS_FLAGS;
+    int accessError = accessToken & MASK_ACCESS_ERROR;
+
+    printf("\n");
+    printf("ID: %d\n", accessId);
+    printf("Type: %d\n", accessType);
+    printf("Flags: %d\n", accessFlags);
+    printf("Error: %d\n", accessError);
+    printf("\n");
+
+}
 
 
 

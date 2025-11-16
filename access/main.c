@@ -42,7 +42,6 @@ typedef char                            BOOL;
 
 //
 //  common declaration
-
 //
 
 NACCESS MakeAccess(int, int, int, BOOL);

@@ -32,12 +32,21 @@
 //  common typedefs & macroes
 //
 
-typedef unsigned int                    NACCESS;
 
+typedef unsigned int                    NACCESS;
 typedef char                            BOOL;
+
 #define TRUE                            0x1
 #define FALSE                           0x0
 
+
+//
+//  common declaration
+//
+
+NACCESS MakeAccess(int, int, int, BOOL);
+int main();
+void printInfo(NACCESS);
 
 
 
@@ -110,7 +119,7 @@ typedef char                            BOOL;
 
 NACCESS MakeAccess(int Id, int AccessType, int Flags, BOOL Error) {
 
-    if (Error > 0b1)
+    if (0b1 < Error)
         Error = ACCESS_ERROR_FAIL;
     
     return (((Id & MASK_ACCESS_ID) << 23) |

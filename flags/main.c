@@ -25,6 +25,8 @@
 //
 //  typedefs & macroes
 //
+typedef char                                            CHAR, *PCHAR;
+typedef const PCHAR                                     CPCHAR;
 typedef unsigned int                                    DWORD;
 typedef char                                            BOOL;
 
@@ -35,10 +37,31 @@ typedef char                                            BOOL;
 //
 //  utilities
 //
-#define LOG(Value)                                      printf(Value "\n") // fuck...
-
+#define LOG                                             printf
 #define MAKERESORCE(Times)                              ((1) << (Times))   // this only shift left specific bit
 #define MAKEDWORD(Value)                                (((DWORD) Value))  // this is unnecessary but, whatever
+
+
+
+//------------------------------------------------
+//
+//  void ResetFlags(DWORD*);
+//  
+//  Description:
+//
+//    - This function just set value of pointer
+//      to 0
+//
+//  Return Value:
+//
+//    - None
+//
+//------------------------------------------------
+void ResetFlags(DWORD* Flags);
+
+
+
+
 
 
 
@@ -116,6 +139,7 @@ int main();
 #define FLAG_PLAYER_ALIVE                               MAKERESORCE(1)
 #define FLAG_PLAYER_BANNED                              MAKERESORCE(2)
 #define FLAG_PLAYER_ADMIN                               MAKERESORCE(3)
+#define FLAG_PLAYER_SPECIAL_MAGIC                       MAKERESORCE(4)
 
 
 
@@ -129,7 +153,14 @@ int main();
 
 int main() {
 
+    //
+    //  properties
+    //
+    CPCHAR Space = "-------------";
     DWORD Flags;
+
+
+    LOG("%s\n", Space);
 
     //
     //  set flags 
@@ -137,37 +168,99 @@ int main() {
     SetFlag(&Flags, (FLAG_PLAYER_ONLINE | FLAG_PLAYER_ADMIN | FLAG_PLAYER_ALIVE));
     
 
-    printf("Flags: %d\n", Flags);
+    LOG("Flags: %d\n", Flags);
+
+
+
 
     //
-    //  here should be true
+    //  this should be true
     //
     if (HasFlag(Flags, FLAG_PLAYER_ADMIN))
-        LOG("True");
+        LOG("True\n");
     else
-        LOG("False");
+        LOG("False\n");
+
+
+    LOG("%s\n", Space);
 
 
 
     //
-    //  here should be true
+    //  this should be true
     //
     if (HasFlag(Flags, FLAG_PLAYER_ALIVE))
-        LOG("True");
+        LOG("True\n");
     else
-        LOG("False");
+        LOG("False\n");
 
 
-    
+    LOG("%s\n", Space);
+
 
 
     //
-    //  here should be false
+    //  this should be false
     //
     if (HasFlag(Flags, FLAG_PLAYER_BANNED))
-        LOG("True");
+        LOG("True\n");
     else
-        LOG("False");
+        LOG("False\n");
+
+
+    LOG("%s\n", Space);
+
+
+
+
+    //
+    //  reset flags
+    //
+
+    ResetFlags(&Flags);
+
+
+
+    //
+    //  this should be false
+    //
+    if (HasFlag(Flags, FLAG_PLAYER_ADMIN))
+        LOG("True\n");
+    else
+        LOG("False\n");
+
+
+
+
+    //
+    //  set flags again
+    //
+    SetFlag(&Flags, (FLAG_PLAYER_SPECIAL_MAGIC | FLAG_PLAYER_ALIVE));
+
+
+    LOG("%s\n", Space);
+
+
+    //
+    //  this should be true
+    //
+    if (HasFlag(Flags, FLAG_PLAYER_ALIVE) && 
+        HasFlag(Flags, FLAG_PLAYER_SPECIAL_MAGIC))
+
+        LOG("True\n");
+
+    else
+
+        LOG("False\n");
+
+
+
+
+
+
+
+
+    LOG("%s\n", Space);
 
     return 0;
 }
@@ -179,7 +272,13 @@ int main() {
 //  helpers
 //
 
+void ResetFlags(DWORD* Flags) {
+    *Flags = 0;
+}
+
 void SetFlag(DWORD* Flags, DWORD ToSet) {
+    if (*Flags == ToSet) 
+        return;
 
     *Flags = MAKEDWORD(ToSet);
 
